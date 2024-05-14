@@ -1,7 +1,9 @@
-package chess;
+package java.chess;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.chess.ChessBoard;
 
 import static org.junit.jupiter.api.Assertions.*;
 

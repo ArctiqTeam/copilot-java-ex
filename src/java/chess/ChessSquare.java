@@ -1,4 +1,4 @@
-package chess;
+package java.chess;
 
 public class ChessSquare {
     private final boolean isDark;

@@ -1,4 +1,4 @@
-package chess;
+package java.chess;
 
 import java.util.HashMap;
 import java.util.Map;
