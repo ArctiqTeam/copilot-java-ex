@@ -1,4 +1,4 @@
-package java.chess;
+package com.arctiq.chess;
 
 public class ChessSquare {
     private final boolean isDark;

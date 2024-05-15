@@ -1,9 +1,7 @@
-package java.chess;
+package com.arctiq.chess;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.chess.ChessBoard;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,6 +33,12 @@ class ChessBoardTest {
         assertThrows(IllegalArgumentException.class, () -> chessBoard.addPiece("white", "rook", "a9"));
         assertThrows(IllegalArgumentException.class, () -> chessBoard.addPiece("white", "rook", "i1"));
         assertThrows(IllegalArgumentException.class, () -> chessBoard.addPiece("white", "rook", "a0"));
+    }
+
+    @Test
+    void testGetFEN() {
+        chessBoard.setInitialPosition();
+        assertEquals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0", chessBoard.getFEN());
     }
 
 }

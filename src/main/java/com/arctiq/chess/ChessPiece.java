@@ -1,4 +1,4 @@
-package java.chess;
+package com.arctiq.chess;
 
 import java.util.HashMap;
 import java.util.Map;

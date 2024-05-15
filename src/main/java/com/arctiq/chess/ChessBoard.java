@@ -1,6 +1,7 @@
-package java.chess;
+package com.arctiq.chess;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -10,6 +11,11 @@ public class ChessBoard {
     private List<String> moveList;
     private String player1;
     private String player2;
+    private char toMove;
+    private List<Character> canCastle;
+    private ChessSquare enPassant;
+    private int halfMoveClock;
+    private int fullMoveNumber;
     private static final Logger LOGGER = Logger.getLogger(ChessBoard.class.getName());
 
     public ChessBoard(String player1, String player2) {
@@ -18,6 +24,11 @@ public class ChessBoard {
         this.moveList = new ArrayList<>();
         this.player1 = player1;
         this.player2 = player2;
+        this.toMove = 'w';
+        this.canCastle = Arrays.asList('K', 'Q', 'k', 'q');
+        this.enPassant = null;
+        this.halfMoveClock = 0;
+        this.fullMoveNumber = 0;
 
         for (int rank = 0; rank < 8; rank++) {
             for (char file = 0; file < 8; file++) {
@@ -29,11 +40,27 @@ public class ChessBoard {
 
     // create method to set initial chess board position
     public void setInitialPosition() {
-        // Set the initial position of the pieces on the board
-        // For each color and set of pieces in ChessPiece
-        // Use the addPiece method to add pieces to the board
-        // Add the black pieces to the rows 7 and 8 and the white pieces to the rows 1 and 2
-
+        // Set the initial position of the chess board
+        this.addPiece("white", "rook", "a1");
+        this.addPiece("white", "knight", "b1");
+        this.addPiece("white", "bishop", "c1");
+        this.addPiece("white", "queen", "d1");
+        this.addPiece("white", "king", "e1");
+        this.addPiece("white", "bishop", "f1");
+        this.addPiece("white", "knight", "g1");
+        this.addPiece("white", "rook", "h1");
+        for (char file = 'a'; file <= 'h'; file++) {
+            this.addPiece("white", "pawn", file + "2");
+            this.addPiece("black", "pawn", file + "7");
+        }
+        this.addPiece("black", "rook", "a8");
+        this.addPiece("black", "knight", "b8");
+        this.addPiece("black", "bishop", "c8");
+        this.addPiece("black", "queen", "d8");
+        this.addPiece("black", "king", "e8");
+        this.addPiece("black", "bishop", "f8");
+        this.addPiece("black", "knight", "g8");
+        this.addPiece("black", "rook", "h8");
     }
 
     public boolean isValidPiece(String color, String piece) {
@@ -111,7 +138,51 @@ public class ChessBoard {
     }
 
     public String getFEN() {
-        // Generate and return the FEN string
-        return "";
+        StringBuilder fen = new StringBuilder();
+
+        for (int rank = 7; rank >= 0; rank--) {
+            int emptySquares = 0;
+            for (int file = 0; file < 8; file++) {
+                ChessPiece piece = this.board[rank][file].getPiece();
+                if (piece == null) {
+                    emptySquares++;
+                } else {
+                    if (emptySquares != 0) {
+                        fen.append(emptySquares);
+                        emptySquares = 0;
+                    }
+                    fen.append(piece.toFEN());
+                }
+            }
+            if (emptySquares != 0) {
+                fen.append(emptySquares);
+            }
+            if (rank != 0) {
+                fen.append('/');
+            }
+        }
+        fen.append(' ' + Character.toString(this.toMove) + ' ');
+        // Fill in the castling options block:
+        for (char castle : this.canCastle) {
+            // Will check if the field has been set to null char and print only the existing values.
+            if ('\u0000' != castle) {
+                fen.append(castle);
+            }
+        }
+        fen.append(' ');
+        // Fill in the en passant square block:
+        if (this.enPassant != null) {
+            fen.append(this.enPassant.getSquare());
+        } else {
+            fen.append('-');
+        }
+        fen.append(' ');
+        // Fill in the half move clock block:
+        fen.append(this.halfMoveClock);
+        fen.append(' ');
+        // Fill in the full move number block:
+        fen.append(this.fullMoveNumber);
+
+        return fen.toString();
     }
 }
