@@ -6,6 +6,8 @@ This is a simple example of a Java application that can be used to demonstrate c
 
 - Java
 - Maven
+- JaCoCo
+- JUnit
 
 ## About the Application
 
