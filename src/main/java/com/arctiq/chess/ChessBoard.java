@@ -137,6 +137,40 @@ public class ChessBoard {
         // Make a move and update the board, capturedPieces, and moveList
     }
 
+    public void setToMove(String color) {
+        // Set the player to move based on the color
+        if (color.equals("white")) {
+            this.toMove = 'w';
+        } else if (color.equals("black")) {
+            this.toMove = 'b';
+        } else {
+            throw new IllegalArgumentException("Invalid color: " + color);
+        }
+    }
+
+    public void toggleCanCastle(String color, String side) {
+        int castleIndex = 0;
+        if ("white".equals(color)) {
+            castleIndex += 0;
+        } else if ("black".equals(color)) {
+            castleIndex = 2;
+        }
+        if ("kingside".equals(side)) {
+            // Do nothing we're already at the right index.
+        } else if ("queenside".equals(side)) {
+            castleIndex += 1;
+        } else {
+            throw new IllegalArgumentException("Invalid color or side");
+        }
+
+        if (this.canCastle.get(castleIndex) != '\u0000') {
+            this.canCastle.set(castleIndex, '\u0000');
+        } else {
+            List<Character> options = Arrays.asList('K', 'Q', 'k', 'q');
+            this.canCastle.set(castleIndex, options.get(castleIndex));
+        }
+    }
+
     public String getFEN() {
         StringBuilder fen = new StringBuilder();
 
