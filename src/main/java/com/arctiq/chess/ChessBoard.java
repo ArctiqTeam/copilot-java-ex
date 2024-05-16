@@ -241,4 +241,21 @@ public class ChessBoard {
 
         return fen.toString();
     }
+
+    public String getASCIIBoard() {
+        // Use StringBuilder to build the ASCII representation of the chess board
+        StringBuilder boardRepresentation = new StringBuilder();
+        for (int rank = 7; rank >= 0; rank--) {
+            for (int file = 0; file < 8; file++) {
+                ChessPiece piece = this.board[rank][file].getPiece();
+                if (piece == null) {
+                    boardRepresentation.append(" . ");
+                } else {
+                    boardRepresentation.append(" ").append(piece.toFEN()).append(" ");
+                }
+            }
+            boardRepresentation.append("\n");
+        }
+        return boardRepresentation.toString();
+    }
 }

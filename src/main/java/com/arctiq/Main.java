@@ -31,5 +31,6 @@ public class Main {
         chessBoard.toggleCanCastle("black", "kingside");
         chessBoard.setToMove("black");
         System.out.println(chessBoard.getFEN());
+        System.out.println(chessBoard.getASCIIBoard());
     }
 }
