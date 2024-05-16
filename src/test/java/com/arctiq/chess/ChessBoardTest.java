@@ -41,4 +41,29 @@ class ChessBoardTest {
         assertEquals("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0", chessBoard.getFEN());
     }
 
+    @Test
+    void testToggleCanCastle() {
+        ChessBoard board = new ChessBoard("player1", "player2");
+
+        // Test for valid inputs
+        board.toggleCanCastle("white", "kingside");
+        assertFalse(board.getCanCastle("white", "kingside"));
+        board.toggleCanCastle("white", "kingside");
+        assertTrue(board.getCanCastle("white", "kingside"));
+
+        board.toggleCanCastle("black", "queenside");
+        assertFalse(board.getCanCastle("black", "queenside"));
+        board.toggleCanCastle("black", "queenside");
+        assertTrue(board.getCanCastle("black", "queenside"));
+
+        // Test for invalid inputs
+        assertThrows(IllegalArgumentException.class, () -> {
+            board.toggleCanCastle("red", "kingside");
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            board.toggleCanCastle("white", "northside");
+        });
+    }
+
 }

@@ -154,13 +154,15 @@ public class ChessBoard {
             castleIndex += 0;
         } else if ("black".equals(color)) {
             castleIndex = 2;
+        } else {
+            throw new IllegalArgumentException("Invalid color");
         }
         if ("kingside".equals(side)) {
             // Do nothing we're already at the right index.
         } else if ("queenside".equals(side)) {
             castleIndex += 1;
         } else {
-            throw new IllegalArgumentException("Invalid color or side");
+            throw new IllegalArgumentException("Invalid side");
         }
 
         if (this.canCastle.get(castleIndex) != '\u0000') {
@@ -169,6 +171,26 @@ public class ChessBoard {
             List<Character> options = Arrays.asList('K', 'Q', 'k', 'q');
             this.canCastle.set(castleIndex, options.get(castleIndex));
         }
+    }
+
+    public boolean getCanCastle(String color, String side) {
+        // Get the current castling options for the given color and side
+        int castleIndex = 0;
+        if ("white".equals(color)) {
+            castleIndex += 0;
+        } else if ("black".equals(color)) {
+            castleIndex = 2;
+        }  else {
+            throw new IllegalArgumentException("Invalid color");
+        }
+        if ("kingside".equals(side)) {
+            // Do nothing we're already at the right index.
+        } else if ("queenside".equals(side)) {
+            castleIndex += 1;
+        } else {
+            throw new IllegalArgumentException("Invalid side");
+        }
+        return this.canCastle.get(castleIndex) != '\u0000';
     }
 
     public String getFEN() {
