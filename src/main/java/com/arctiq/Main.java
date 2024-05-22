@@ -1,6 +1,8 @@
 package com.arctiq;
 
 import com.arctiq.chess.ChessBoard;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class Main {
     public static void main(String[] args) {
@@ -32,5 +34,17 @@ public class Main {
         chessBoard.setToMove("black");
         System.out.println(chessBoard.getFEN());
         System.out.println(chessBoard.getASCIIBoard());
+
+        try {
+            String url = "https://fen2image.chessvision.ai/";
+            System.out.println(url + urlEncode(chessBoard.getFEN()));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String urlEncode(String input) throws UnsupportedEncodingException {
+        String encoded = URLEncoder.encode(input, "UTF-8");
+        return encoded.replace("+", "%20");
     }
 }
