@@ -1,5 +1,8 @@
 package com.arctiq.chess;
 
+/**
+ * Represents a square on a chess board.
+ */
 public class ChessSquare {
     private final boolean isDark;
     private final int rank;
@@ -9,6 +12,11 @@ public class ChessSquare {
     private boolean occupied;
     private ChessPiece piece;
 
+    /**
+     * Constructs a ChessSquare with the specified square.
+     * @param square the square on the chess board, in the format of file and rank (e.g. a1).
+     * @throws IllegalArgumentException if the square is invalid.
+     */
     public ChessSquare(String square) {
         if (square.length() != 2) {
             throw new IllegalArgumentException("Invalid square. Square must be in the format of file and rank (e.g. a1)");
@@ -30,6 +38,10 @@ public class ChessSquare {
         this.piece = null;
     }
 
+    /**
+     * Returns the color of this ChessSquare.
+     * @return the color of this ChessSquare, either "dark" or "light".
+     */
     public String getColor() {
         if (isDark) {
             return "dark";
@@ -38,39 +50,74 @@ public class ChessSquare {
         }
     }
 
+    /**
+     * Returns the rank of this ChessSquare.
+     * @return the rank of this ChessSquare.
+     */
     public int getRank() {
         return rank;
     }
 
+    /**
+     * Returns the rank index of this ChessSquare.
+     * @return the rank index of this ChessSquare.
+     */
     public int getRankIdx() {
         return rank_idx;
     }
 
+    /**
+     * Returns the file of this ChessSquare.
+     * @return the file of this ChessSquare.
+     */
     public char getFile() {
         return file;
     }
 
+    /**
+     * Returns the file index of this ChessSquare.
+     * @return the file index of this ChessSquare.
+     */
     public int getFileIdx() {
         return file_idx;
     }
 
+    /**
+     * Returns the square of this ChessSquare.
+     * @return the square of this ChessSquare, in the format of file and rank (e.g. a1).
+     */
     public String getSquare() {
         return file + Integer.toString(rank);
     }
 
+    /**
+     * Checks if this ChessSquare is occupied.
+     * @return true if this ChessSquare is occupied, false otherwise.
+     */
     public boolean isOccupied() {
         return occupied;
     }
 
+    /**
+     * Returns the ChessPiece on this ChessSquare.
+     * @return the ChessPiece on this ChessSquare, or null if the square is not occupied.
+     */
     public ChessPiece getPiece() {
         return piece;
     }
 
+    /**
+     * Sets the ChessPiece on this ChessSquare.
+     * @param piece the ChessPiece to place on this ChessSquare.
+     */
     public void setPiece(ChessPiece piece) {
         this.piece = piece;
         this.occupied = piece != null;
     }
 
+    /**
+     * Clears the ChessPiece from this ChessSquare.
+     */
     public void clearPiece() {
         this.piece = null;
         this.occupied = false;
