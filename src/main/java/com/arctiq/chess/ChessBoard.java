@@ -258,4 +258,17 @@ public class ChessBoard {
         }
         return boardRepresentation.toString();
     }
+
+    public String getLightAndDark() {
+        StringBuilder boardRepresentation = new StringBuilder();
+        for (int rank = 7; rank >= 0; rank--) {
+            for (int file = 0; file < 8; file++) {
+                ChessSquare square = this.board[rank][file];
+                String color = square.getColor();
+                boardRepresentation.append(" ").append(color.equals("dark") ? 'X' : '_').append(" ");
+            }
+            boardRepresentation.append("\n");
+        }
+        return boardRepresentation.toString();
+    }
 }

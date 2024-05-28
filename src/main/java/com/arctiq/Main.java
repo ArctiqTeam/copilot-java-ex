@@ -34,6 +34,7 @@ public class Main {
         chessBoard.setToMove("black");
         System.out.println(chessBoard.getFEN());
         System.out.println(chessBoard.getASCIIBoard());
+        System.out.println(chessBoard.getLightAndDark());
 
         try {
             String url = "https://fen2image.chessvision.ai/";
