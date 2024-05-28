@@ -29,7 +29,7 @@ public class ChessSquare {
         if (file < 'a' || file > 'h') {
             throw new IllegalArgumentException("Invalid file. File must be within the range of a-h");
         }
-        this.isDark = ((rank + (file - 'a')) % 2) == 0;
+        this.isDark = ((rank + (file - 'a')) % 2) != 0;
         this.rank = rank;
         this.rank_idx = rank - 1;
         this.file = file;
